@@ -1,5 +1,5 @@
 # doc-version-control
-Version control for plaintext and .docx files. Allows users to upload documents and view changes at-a-glance.
+Version control for plaintext and .docx files. Allows users to upload documents and view side-by-side changes at-a-glance.
 
 ## Backend
 
