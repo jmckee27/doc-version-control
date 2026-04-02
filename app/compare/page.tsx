@@ -1,21 +1,3 @@
-// ============================================================
-// app/compare/page.tsx
-// ============================================================
-// WHAT IS THIS FILE?
-// This is the Compare page. Creating a folder called "compare"
-// with a page.tsx inside makes this available at URL: /compare
-//
-// SPRINT 4 PLAN:
-// The button below will be wired up to:
-//   1. Fetch the student's uploaded versions from the backend
-//   2. Let the student select two versions to compare
-//   3. Call backend API (GET /api/compare?v1=x&v2=y)
-//   4. Backend retrieves files from Azure Blob Storage,
-//      runs the diff engine, returns highlighted differences
-//   5. Display results side by side — added text in green,
-//      removed text in red, unchanged text in gray
-// ============================================================
-
 export default function ComparePage() {
   return (
     <div className="flex flex-col flex-1 bg-zinc-50 font-sans dark:bg-black min-h-screen">

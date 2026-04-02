@@ -1,18 +1,3 @@
-// ============================================================
-// app/layout.tsx
-// ============================================================
-// WHAT IS THIS FILE?
-// This is the root layout — it wraps EVERY page in the app.
-// Whatever you put here appears on all pages automatically.
-//
-// WHAT CHANGED FROM THE ORIGINAL:
-// Added the Navbar import and <Navbar /> component so the
-// navigation bar appears on every page without needing to
-// add it to each page file individually.
-//
-// The original layout.tsx only had fonts and a <body> tag.
-// ============================================================
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";

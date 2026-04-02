@@ -1,22 +1,3 @@
-// ============================================================
-// app/upload/page.tsx
-// ============================================================
-// WHAT IS THIS FILE?
-// This is the Upload page. In Next.js App Router, creating a
-// folder called "upload" with a page.tsx inside automatically
-// makes this page available at the URL: /upload
-//
-// No routing file needed — the folder structure IS the routing.
-//
-// SPRINT 3 PLAN:
-// The button below will be wired up to:
-//   1. Open a file picker so the student can select a file
-//   2. Send the file to the backend API (POST /api/upload)
-//   3. The backend stores the file in Azure Blob Storage
-//   4. The backend saves metadata (user, version, timestamp)
-//      in the Azure SQL Database
-// ============================================================
-
 export default function UploadPage() {
   return (
     <div className="flex flex-col flex-1 bg-zinc-50 font-sans dark:bg-black min-h-screen">

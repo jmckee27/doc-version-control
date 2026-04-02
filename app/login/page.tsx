@@ -1,22 +1,3 @@
-// ============================================================
-// app/login/page.tsx
-// ============================================================
-// WHAT IS THIS FILE?
-// This is the Login page. Creating a folder called "login"
-// with a page.tsx inside makes this available at URL: /login
-//
-// This is the first page students see when they visit the app.
-//
-// SPRINT 3 PLAN:
-// The Sign In button will be wired up to:
-//   1. Read the username and password the student typed
-//   2. POST credentials to backend API /api/login
-//   3. Backend checks against Azure SQL Database
-//   4. If correct, backend returns a token
-//   5. Frontend saves the token and redirects to "/"
-//   6. If incorrect, show an error message below the button
-// ============================================================
-
 export default function LoginPage() {
   return (
     <div className="flex flex-col flex-1 bg-zinc-50 font-sans dark:bg-black min-h-screen">

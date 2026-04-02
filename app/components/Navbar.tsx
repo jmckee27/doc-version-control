@@ -1,20 +1,3 @@
-// ============================================================
-// app/components/Navbar.tsx
-// ============================================================
-// WHAT IS THIS FILE?
-// This is the navigation bar that appears at the top of every
-// page. It lives in components/ because it's a shared piece
-// used across all pages, not a page itself.
-//
-// In Next.js, navigation uses <Link> from "next/link" instead
-// of React Router's <Link>. It works the same way — just a
-// different import.
-//
-// "use client" is needed here because this component uses
-// interactive navigation. Next.js components are server-side
-// by default — "use client" opts this one into the browser.
-// ============================================================
-
 "use client";
 
 import Link from "next/link";
