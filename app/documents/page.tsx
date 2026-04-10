@@ -2,7 +2,7 @@ import Link from "next/link";
 
 // MOCK DATA — Will replace with real API call in Sprint 3
 // This simulates what the backend would return for a document - dynamic page
-// This page can only be reach through mannual URL: /documents
+// This page can only be reached through a manual URL: /documents
 
 const mockDocument = {
   id: 1,
