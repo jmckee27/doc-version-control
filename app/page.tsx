@@ -1,3 +1,4 @@
+// Dashboard page
 export default function Home() {
   const documents = [
     {
