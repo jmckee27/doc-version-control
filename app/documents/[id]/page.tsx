@@ -1,25 +1,3 @@
-// ============================================================
-// app/documents/[id]/page.tsx — Version History Page
-// ============================================================
-// WHAT CHANGED FROM PREVIOUS VERSION:
-// Download button now sends JWT token in Authorization header.
-// This is required by the file endpoint which uses
-// getUserFromToken() to verify the request is authenticated.
-//
-// ENDPOINTS USED:
-//   GET /api/meta/doc/{id}
-//   Returns: { document: {...}, versions: [...] }
-//
-//   GET /api/file/doc/{id}/{version}
-//   Headers: { Authorization: "Bearer {token}" }
-//   Returns: actual file bytes (.docx)
-//
-// NOTE: getFile endpoint still has hardcoded "document1.docx"
-// path — returns same file regardless of id/version until
-// teammate fixes the blob path lookup. No frontend changes
-// needed when that is fixed.
-// ============================================================
-
 "use client";
 
 import { useState, useEffect, use } from "react";
