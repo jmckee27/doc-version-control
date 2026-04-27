@@ -1,41 +1,3 @@
-// ============================================================
-// app/upload/page.tsx — Upload Page
-// ============================================================
-// FULLY IMPLEMENTED IN SPRINT 3
-//
-// WHAT THIS PAGE DOES:
-// Lets a student upload a file as a new version of an
-// existing assignment. The file is sent to Azure Blob
-// Storage and recorded as a new version in the SQL database.
-//
-// REQUIRES:
-// - User must be logged in (JWT token in localStorage)
-// - An existing assignment ID to upload to
-// - A file selected from their computer
-//
-// ENDPOINT: POST /api/file/doc/{id}
-// HEADERS:
-//   Authorization: Bearer {token}  ← JWT authentication
-//   x-file-name: {filename}        ← tells backend the filename
-//   Content-Type: {file.type}      ← file mime type
-// BODY: raw file bytes
-// RETURNS: { message, file_path, url }
-//
-// FLOW:
-// 1. Student selects assignment from dropdown
-// 2. Student picks a file from their computer
-// 3. Clicks Upload
-// 4. File sent to backend with JWT token
-// 5. Backend stores in Azure Blob Storage
-// 6. Backend records new version in SQL database
-// 7. Success → redirect to version history page
-// 8. Failure → show error message
-//
-// NOTE: Currently only supports uploading to EXISTING
-// assignments. Creating a new assignment + uploading
-// (POST /api/file/doc) is a Sprint 4 TODO.
-// ============================================================
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -88,10 +50,7 @@ export default function Upload() {
     }
   }
 
-  // ── HANDLE UPLOAD ──────────────────────────────────────────
   // Runs when student clicks the Upload button.
-  // Validates inputs, then sends file to backend.
-  // ───────────────────────────────────────────────────────────
   async function handleUpload() {
     setError("");
     setSuccess("");

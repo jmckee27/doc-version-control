@@ -133,7 +133,7 @@ export default function Home() {
               On success: refresh assignments list
           ─────────────────────────────────────────────────── */}
           <button className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
-            + New Document
+            + New Assignment
           </button>
 
           <Link
