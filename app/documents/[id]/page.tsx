@@ -4,29 +4,25 @@ import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-// Download button
-function DownloadButton({ id, versionNumber }: {
-  id: string;
+function DownloadButton({ filePath, versionNumber }: {
+  filePath: string;
   versionNumber: number;
 }) {
   const [downloading, setDownloading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError]             = useState("");
 
   async function handleDownload() {
     setDownloading(true);
     setError("");
 
     try {
-      // Get Token from LocalStorage
-      // Required by the file endpoint for authentication.
       const token = localStorage.getItem("token");
 
+      // Uses real file_path from database
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/file/doc/${id}/${versionNumber}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/file/doc/${filePath}`,
         {
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }
+          headers: { "Authorization": `Bearer ${token}` }
         }
       );
 
@@ -35,11 +31,10 @@ function DownloadButton({ id, versionNumber }: {
         return;
       }
 
-      // Handle file download
       const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
+      const url  = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.href = url;
+      link.href     = url;
       link.download = `document_v${versionNumber}.docx`;
       link.click();
       window.URL.revokeObjectURL(url);
@@ -65,25 +60,21 @@ function DownloadButton({ id, versionNumber }: {
   );
 }
 
-
-// Main page
-
 export default function DocumentVersionsPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = use(params);
-  const [document, setDocument] = useState<any>(null);
-  const [versions, setVersions] = useState<any[]>([]);
-  const [loading, setLoading]   = useState(true);
-  const [error, setError]       = useState("");
-  const router = useRouter();
+  const { id }                        = use(params);
+  const [document, setDocument]       = useState<any>(null);
+  const [versions, setVersions]       = useState<any[]>([]);
+  const [loading, setLoading]         = useState(true);
+  const [error, setError]             = useState("");
+  const router                        = useRouter();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        // Route protection
         const username = localStorage.getItem("username");
         if (!username) {
           router.push("/login");
@@ -118,9 +109,7 @@ export default function DocumentVersionsPage({
     return (
       <div className="flex flex-col flex-1 bg-zinc-50 dark:bg-black min-h-screen items-center justify-center">
         <p className="text-red-500">{error || "Document not found."}</p>
-        <Link href="/" className="text-blue-600 mt-4 text-sm">
-          ← Back to Dashboard
-        </Link>
+        <Link href="/" className="text-blue-600 mt-4 text-sm">← Back to Dashboard</Link>
       </div>
     );
   }
@@ -130,10 +119,7 @@ export default function DocumentVersionsPage({
       <main className="flex flex-1 flex-col w-full max-w-4xl mx-auto py-8 px-6">
 
         <div className="mb-6">
-          <Link
-            href="/"
-            className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-zinc-50 transition-colors"
-          >
+          <Link href="/" className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-zinc-50 transition-colors">
             ← Back to Dashboard
           </Link>
         </div>
@@ -187,16 +173,15 @@ export default function DocumentVersionsPage({
                 </div>
 
                 <div className="col-span-4 flex justify-end gap-3">
+                  {/* Download uses real file_path from database */}
                   <DownloadButton
-                    id={id}
+                    filePath={version.file_path}
                     versionNumber={version.version_number}
                   />
-                  {/* ── SPRINT 4 TODO ──────────────────────────
-                      Wire Compare to /compare with version
-                      pre-selected once diff engine is done
-                  ─────────────────────────────────────────── */}
+
+                  {/* Compare pre-fills assignmentId and versionA on compare page */}
                   <Link
-                    href="/compare"
+                    href={`/compare?assignmentId=${id}&versionA=${version.version_number}`}
                     className="text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-zinc-50 text-sm font-medium"
                   >
                     Compare
@@ -209,8 +194,9 @@ export default function DocumentVersionsPage({
         </div>
 
         <div className="flex gap-4">
+          {/* Links to upload page in Mode 2 for existing assignment */}
           <Link
-            href="/upload"
+            href={`/upload?mode=existing`}
             className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
             + Upload New Version
