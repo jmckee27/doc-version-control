@@ -29,6 +29,13 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
+      - name: Verify routes before upload
+        run: |
+          pwd
+          ls -la
+          find app -maxdepth 3 -type f
+          ls -la .next
+          
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
