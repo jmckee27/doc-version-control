@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export default function Upload() {
@@ -195,8 +195,6 @@ export default function Upload() {
       <main className="flex flex-1 flex-col w-full max-w-4xl mx-auto py-8 px-6">
 
         <div className="mb-6">
-          <Link href="/" className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-zinc-50 transition-colors">
-            Back to Dashboard
           <Link
             href="/"
             className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-zinc-50 transition-colors"
