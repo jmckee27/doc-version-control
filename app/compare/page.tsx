@@ -199,7 +199,7 @@ export default function ComparePage() {
             Compare Versions
           </h1>
           <p className="text-zinc-600 dark:text-zinc-400">
-            Select an assignment and two versions to see what changed
+            Select two versions of a document to see what changed
           </p>
         </div>
 

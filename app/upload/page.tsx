@@ -1,7 +1,8 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Upload() {
@@ -38,6 +39,8 @@ export default function Upload() {
         router.push("/login");
         return;
       }
+
+      // Fetch assignments to populate the dropdown
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/api/meta/docs?username=${username}`
@@ -51,6 +54,9 @@ export default function Upload() {
     init();
   }, []);
 
+  // Runs when student picks a file from their computer.
+  // Saves the file object to state so we can send it on upload
+
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files[0]) {
       setSelectedFile(e.target.files[0]);
@@ -58,10 +64,19 @@ export default function Upload() {
     }
   }
 
+  // ── HANDLE UPLOAD ──────────────────────────────────────────
+  // Runs when student clicks the Upload button.
+  // Validates inputs, then sends file to backend.
+  // ───────────────────────────────────────────────────────────
   async function handleUpload() {
     setError("");
     setSuccess("");
 
+    // Validate both assignment and file are selected
+    if (!assignmentId) {
+      setError("Please select an assignment.");
+      return;
+    }
     if (!selectedFile) {
       setError("Please select a file to upload.");
       return;
@@ -182,6 +197,11 @@ export default function Upload() {
         <div className="mb-6">
           <Link href="/" className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-zinc-50 transition-colors">
             Back to Dashboard
+          <Link
+            href="/"
+            className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-zinc-50 transition-colors"
+          >
+            ← Back to Dashboard
           </Link>
         </div>
 

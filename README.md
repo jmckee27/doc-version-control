@@ -30,6 +30,16 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## GROUP SPRINT SCHEDULE
+
+- Week 1 (March 30 - April 5): Set up Azure environment, configure services, and initialize GitHub repository
+- Week 2 (April 6 - April 12): Develop backend APIs and database schema
+- Week 3 (April 13 - April 19): Implement file upload functionality and integrate Azure Blob Storage
+- Week 4 (April 20 - April 26): Develop version comparison feature and frontend UI components
+- Week 5 (April 27 - May 3): Conduct testing, debugging, and performance improvements
+- Week 6 (May 4 - May 10): Finalize application and prepare presentation
+
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -46,4 +56,5 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Azure Redeploy Trigger
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
->>>>>>> 76a4038 (Initial commit from Create Next App)
+
+Azure Redeploy Trigger 5
