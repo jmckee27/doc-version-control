@@ -8,8 +8,17 @@ import ReactDiffViewer from "react-diff-viewer-continued";
 import mammoth from "mammoth";
 
 export default function ComparePage() {
+  const [mounted, setMounted] = useState(false);
   const router       = useRouter();
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   // Read URL Params
   // When coming from version history Compare button
@@ -191,6 +200,8 @@ export default function ComparePage() {
       console.error("Download failed:", err);
     }
   }
+
+  if (!mounted) return null;
 
   return (
     <div className="flex flex-col flex-1 bg-zinc-50 font-sans dark:bg-black min-h-screen">
@@ -455,3 +466,7 @@ export default function ComparePage() {
     </div>
   );
 }
+function setMounted(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}
+
