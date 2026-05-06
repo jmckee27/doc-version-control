@@ -73,7 +73,7 @@ export default function Upload() {
     setSuccess("");
 
     // Validate both assignment and file are selected
-    if (!assignmentId) {
+    if (mode === "existing" && !assignmentId) {
       setError("Please select an assignment.");
       return;
     }
