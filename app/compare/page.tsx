@@ -466,7 +466,5 @@ export default function ComparePage() {
     </div>
   );
 }
-function setMounted(arg0: boolean) {
-  throw new Error("Function not implemented.");
-}
+
 
