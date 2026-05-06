@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ReactDiffViewer from "react-diff-viewer-continued";
 import mammoth from "mammoth";
@@ -202,6 +202,7 @@ export default function ComparePage() {
   if (!mounted) return null;
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className="flex flex-col flex-1 bg-zinc-50 font-sans dark:bg-black min-h-screen">
       <main className="flex flex-1 flex-col w-full max-w-7xl mx-auto py-8 px-6">
 
@@ -462,6 +463,7 @@ export default function ComparePage() {
 
       </main>
     </div>
+    </Suspense>
   );
 }
 
