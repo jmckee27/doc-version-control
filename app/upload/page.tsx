@@ -135,7 +135,7 @@ export default function Upload() {
       const uploadData = await uploadResponse.json();
 
       if (!uploadResponse.ok) {
-        setError(uploadData.error || "File upload failed.");
+        setError("File upload failed.");
         setUploading(false);
         return;
       }

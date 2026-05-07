@@ -51,7 +51,7 @@ export default function LoginPage() {
         router.push("/");
 
       } else {
-        setError(data.error || "Login failed. Please try again.");
+        setError("Login failed. Please try again.");
       }
 
     } catch (err) {
