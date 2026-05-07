@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -10,6 +10,17 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError]       = useState("");
   const [loading, setLoading]   = useState(false);
+
+  // Checks if the user was redirected here after creating
+  // a new account. RegisterPage appends ?registered=true
+  // to the URL when signup succeeds
+  const [justRegistered, setJustRegistered] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setJustRegistered(params.get("registered") === "true");
+  }, []);
+
   const router = useRouter();
 
   async function handleLogin() {
@@ -36,16 +47,12 @@ export default function LoginPage() {
 
       if (response.ok) {
         // Save to LocalStorage 
-        // token    > for authenticated API requests
-        // user_id  > for creating new assignments
-        // username > for Navbar and Dashboard display
         localStorage.setItem("token", data.token);
         localStorage.setItem("user_id", data.user_id);
         localStorage.setItem("username", username);
 
         // Fires custom event so Navbar re-checks localStorage
         // and updates immediately without a page refresh.
-        // Navbar listens for this event in its useEffect.
         window.dispatchEvent(new Event("auth-change"));
 
         router.push("/");
@@ -102,6 +109,14 @@ export default function LoginPage() {
             />
           </div>
 
+          {/* Success message — only shows when redirected from registration */}
+          {justRegistered && (
+            <p className="mb-4 text-sm text-green-600 text-center">
+              Account created successfully - please sign in.
+            </p>
+          )}
+
+          {/* Error message — only shows if login fails */}
           {error && (
             <p className="mb-4 text-sm text-red-500 text-center">{error}</p>
           )}

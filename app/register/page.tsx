@@ -59,7 +59,7 @@ export default function RegisterPage() {
 
         // Redirect to login page so user can sign in
         // with their new account
-        router.push("/login");
+        router.push("/login?registered=true");//
       } else if (response.status === 409) {
         setError("Username already taken. Please choose another.");
       } else {
