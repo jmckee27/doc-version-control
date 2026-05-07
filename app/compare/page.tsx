@@ -210,10 +210,9 @@ function CompareContent() {
     }
   }
 
-  if (!mounted) return null;
+  // if (!mounted) return null; REMOVED TEMP
 
   return (
-    {/* <Suspense fallback={<div>Loading...</div>}> */}
     <div className="flex flex-col flex-1 bg-zinc-50 font-sans dark:bg-black min-h-screen">
       <main className="flex flex-1 flex-col w-full max-w-7xl mx-auto py-8 px-6">
 
@@ -474,7 +473,6 @@ function CompareContent() {
 
       </main>
     </div>
-      {/* </Suspense> */}
   );
 }
 
