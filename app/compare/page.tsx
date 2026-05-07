@@ -1,11 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ReactDiffViewer from "react-diff-viewer-continued";
 import mammoth from "mammoth";
 
-export default function ComparePage() {
+// All compare logic lives here. Separated from the default
+// export so that useSearchParams() can be safely wrapped in
+// a Suspense boundary below.
+//
+// Next.js requires any component using useSearchParams() to
+// be wrapped in <Suspense> in production builds. Without it,
+// the page crashes on the live Azure deployment even though
+// it works fine locally in development mode.
+
+function ComparePageInner() {
   const router       = useRouter();
   const searchParams = useSearchParams();
 
@@ -28,7 +37,7 @@ export default function ComparePage() {
   const [showDiff, setShowDiff]         = useState(false);
   const [splitView, setSplitView]       = useState(true);
 
-  // Route and Load 
+  // Route and Load
   useEffect(() => {
     const username = localStorage.getItem("username");
     if (!username) {
@@ -50,7 +59,7 @@ export default function ComparePage() {
     fetchAssignments();
   }, []);
 
-  // Load versions when assignment changes 
+  // Load versions when assignment changes
   useEffect(() => {
     if (!assignmentId) {
       setVersions([]);
@@ -98,11 +107,11 @@ export default function ComparePage() {
       return await blob.text();
     }
 
-    // .pdf and other formats not supported 
+    // .pdf and other formats not supported
     return "File format not supported for comparison. Only .txt and .docx files are supported.";
   }
 
-  // Compare 
+  // Compare
   async function handleCompare() {
     setError("");
     setShowDiff(false);
@@ -250,7 +259,7 @@ export default function ComparePage() {
                     </option>
                   ))}
                 </select>
-                {/* Download button  only shown when version A is selected */}
+                {/* Download button - only shown when version A is selected */}
                 {versionA && (
                   <button
                     onClick={() => handleDownload(versionA)}
@@ -451,5 +460,28 @@ export default function ComparePage() {
 
       </main>
     </div>
+  );
+}
+
+// DEFAULT EXPORT
+// Wraps ComparePageInner in a Suspense boundary.
+//
+// This is required by Next.js whenever useSearchParams() is
+// used in a page component. Without Suspense, the production
+// build fails and the page crashes on the live Azure deployment
+// even though it works fine in local development mode.
+//
+// The fallback shows a loading state while the component
+// hydrates in the browser — matches the loading style used
+// across other pages in the app.
+export default function ComparePage() {
+  return (
+    <Suspense fallback={
+      <div className="flex flex-col flex-1 bg-zinc-50 dark:bg-black min-h-screen items-center justify-center">
+        <p className="text-zinc-500">Loading...</p>
+      </div>
+    }>
+      <ComparePageInner />
+    </Suspense>
   );
 }
