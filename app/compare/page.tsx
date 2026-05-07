@@ -6,22 +6,33 @@ import ReactDiffViewer from "react-diff-viewer-continued";
 import mammoth from "mammoth";
 
 export default function ComparePage() {
-  const [mounted, setMounted] = useState(false);
-  const router       = useRouter();
-  const searchParams = useSearchParams();
+  return (
+    <Suspense fallback={<div>Loading comparison page...</div>}>
+      <CompareContent/>
+    </Suspense>
+  );
+}
+  // const [mounted, setMounted] = useState(false);
+  // const router       = useRouter();
+  // const searchParams = useSearchParams(); MOVED THESE DOWN
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // TEMP REMOVAL
+  // useEffect(() => {
+  //   setMounted(true);
+  // }, []);
 
-  if (!mounted) {
-    return null;
-  }
+  // if (!mounted) {
+  //   return null;
+  // }
 
   // Read URL Params
   // When coming from version history Compare button
   // Pre-fills assignment dropdown and Version A automatically
 
+function CompareContent() {
+  const router       = useRouter();
+  const searchParams = useSearchParams();
+  
   const urlAssignmentId = searchParams.get("assignmentId") || "";
   const urlVersionA     = searchParams.get("versionA")     || "";
 
