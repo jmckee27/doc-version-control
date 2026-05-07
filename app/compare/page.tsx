@@ -6,32 +6,21 @@ import ReactDiffViewer from "react-diff-viewer-continued";
 import mammoth from "mammoth";
 
 export default function ComparePage() {
-  return (
-    <Suspense fallback={<div>Loading comparison page...</div>}>
-      <CompareContent/>
-    </Suspense>
-  );
-}
-  // const [mounted, setMounted] = useState(false);
-  // const router       = useRouter();
-  // const searchParams = useSearchParams(); MOVED THESE DOWN
+  const [mounted, setMounted] = useState(false);
+  const router       = useRouter();
+  const searchParams = useSearchParams();
 
-  // TEMP REMOVAL
-  // useEffect(() => {
-  //   setMounted(true);
-  // }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  // if (!mounted) {
-  //   return null;
-  // }
+  if (!mounted) {
+    return null;
+  }
 
   // Read URL Params
   // When coming from version history Compare button
   // Pre-fills assignment dropdown and Version A automatically
-
-function CompareContent() {
-  const router       = useRouter();
-  const searchParams = useSearchParams();
   
   const urlAssignmentId = searchParams.get("assignmentId") || "";
   const urlVersionA     = searchParams.get("versionA")     || "";
@@ -210,9 +199,10 @@ function CompareContent() {
     }
   }
 
-  // if (!mounted) return null; REMOVED TEMP
+  if (!mounted) return null;
 
   return (
+  <Suspense fallback={<div>Loading...</div>}>
     <div className="flex flex-col flex-1 bg-zinc-50 font-sans dark:bg-black min-h-screen">
       <main className="flex flex-1 flex-col w-full max-w-7xl mx-auto py-8 px-6">
 
@@ -473,6 +463,7 @@ function CompareContent() {
 
       </main>
     </div>
+  </Suspense>
   );
 }
 
