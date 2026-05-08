@@ -5,23 +5,23 @@ import { useRouter, useSearchParams } from "next/navigation";
 import ReactDiffViewer from "react-diff-viewer-continued";
 import mammoth from "mammoth";
 
-// All compare logic lives here. Separated from the default
-// export so that useSearchParams() can be safely wrapped in
-// a Suspense boundary below.
-//
-// Next.js requires any component using useSearchParams() to
-// be wrapped in <Suspense> in production builds. Without it,
-// the page crashes on the live Azure deployment even though
-// it works fine locally in development mode.
-
-function ComparePageInner() {
+export default function ComparePage() {
+  const [mounted, setMounted] = useState(false);
   const router       = useRouter();
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   // Read URL Params
   // When coming from version history Compare button
   // Pre-fills assignment dropdown and Version A automatically
-
+  
   const urlAssignmentId = searchParams.get("assignmentId") || "";
   const urlVersionA     = searchParams.get("versionA")     || "";
 
@@ -199,7 +199,10 @@ function ComparePageInner() {
     }
   }
 
+  if (!mounted) return null;
+
   return (
+  <Suspense fallback={<div>Loading...</div>}>
     <div className="flex flex-col flex-1 bg-zinc-50 font-sans dark:bg-black min-h-screen">
       <main className="flex flex-1 flex-col w-full max-w-7xl mx-auto py-8 px-6">
 
@@ -208,7 +211,7 @@ function ComparePageInner() {
             Compare Versions
           </h1>
           <p className="text-zinc-600 dark:text-zinc-400">
-            Select an assignment and two versions to see what changed
+            Select two versions of a document to see what changed
           </p>
         </div>
 
@@ -460,28 +463,8 @@ function ComparePageInner() {
 
       </main>
     </div>
+  </Suspense>
   );
 }
 
-// DEFAULT EXPORT
-// Wraps ComparePageInner in a Suspense boundary.
-//
-// This is required by Next.js whenever useSearchParams() is
-// used in a page component. Without Suspense, the production
-// build fails and the page crashes on the live Azure deployment
-// even though it works fine in local development mode.
-//
-// The fallback shows a loading state while the component
-// hydrates in the browser — matches the loading style used
-// across other pages in the app.
-export default function ComparePage() {
-  return (
-    <Suspense fallback={
-      <div className="flex flex-col flex-1 bg-zinc-50 dark:bg-black min-h-screen items-center justify-center">
-        <p className="text-zinc-500">Loading...</p>
-      </div>
-    }>
-      <ComparePageInner />
-    </Suspense>
-  );
-}
+

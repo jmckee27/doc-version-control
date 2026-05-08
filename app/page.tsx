@@ -21,11 +21,13 @@ export default function Home() {
           router.push("/login");
           return;
         }
+
         setUsername(storedUsername);
 
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/api/meta/docs?username=${storedUsername}`
         );
+
         const data = await response.json();
         setAssignments(data.result ?? []);
 
@@ -35,6 +37,7 @@ export default function Home() {
         setLoading(false);
       }
     }
+
     fetchAssignments();
   }, []);
 
@@ -78,7 +81,7 @@ export default function Home() {
 
           {assignments.length === 0 ? (
             <div className="px-6 py-12 text-center text-zinc-400 dark:text-zinc-500 text-sm">
-              No assignments yet. Create your first assignment below!
+              No assignments yet. Create your first document below!
             </div>
           ) : (
             <div className="divide-y divide-zinc-200 dark:divide-zinc-800">
