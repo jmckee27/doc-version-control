@@ -175,23 +175,32 @@ export default function DocumentVersionsPage({
                 key={version.version_id}
                 className="grid grid-cols-12 gap-4 px-6 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors items-center"
               >
-                <div className="col-span-1 flex items-center gap-2">
+                <div className="col-span-1 flex flex-col gap-1">
                   <span className="font-medium text-black dark:text-zinc-50">
                     v{version.version_number}
                   </span>
                   {index === versions.length - 1 && (
-                    <span className="inline-block bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-semibold px-2 py-0.5 rounded">
+                    <span className="inline-block bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-semibold px-2 py-0.5 rounded w-fit">
                       Latest
                     </span>
                   )}
                 </div>
 
                 <div className="col-span-4 text-sm text-zinc-600 dark:text-zinc-400">
-                  {version.uploaded_at.split("T")[0]}
+                  {new Date(version.uploaded_at).toLocaleString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "2-digit"
+                  })}
                 </div>
 
-                <div className="col-span-3 text-sm text-zinc-600 dark:text-zinc-400 truncate">
-                  {version.file_path}
+                <div
+                  className="col-span-3 text-sm text-zinc-600 dark:text-zinc-400 truncate cursor-pointer"
+                  title={version.file_path.split("/").pop()}
+                >
+                  {version.file_path.split("/").pop()}
                 </div>
 
                 <div className="col-span-4 flex justify-end gap-3">

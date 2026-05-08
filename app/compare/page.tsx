@@ -28,6 +28,7 @@ export default function ComparePage() {
   const [showDiff, setShowDiff]         = useState(false);
   const [splitView, setSplitView]       = useState(true);
 
+  // Route and Load
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -264,6 +265,7 @@ export default function ComparePage() {
                     </option>
                   ))}
                 </select>
+                {/* Download button - only shown when version A is selected */}
                 {versionA && (
                   <button
                     onClick={() => handleDownload(versionA)}

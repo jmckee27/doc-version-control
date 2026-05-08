@@ -150,7 +150,7 @@ export default function Upload() {
       const uploadData = await uploadResponse.json();
 
       if (!uploadResponse.ok) {
-        setError(uploadData.error || "File upload failed.");
+        setError("File upload failed.");
         setUploading(false);
         return;
       }
@@ -297,7 +297,7 @@ export default function Upload() {
               <div className="border-2 border-dashed border-zinc-300 dark:border-zinc-600 rounded-lg p-8 text-center">
                 <input
                   type="file"
-                  accept=".docx,.txt,.pdf"
+                  accept=".docx,.txt"
                   onChange={handleFileChange}
                   className="hidden"
                   id="file-input"
