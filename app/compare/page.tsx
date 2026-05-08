@@ -37,7 +37,7 @@ export default function ComparePage() {
   const [showDiff, setShowDiff]         = useState(false);
   const [splitView, setSplitView]       = useState(true);
 
-  // Route and Load 
+  // Route and Load
   useEffect(() => {
     const username = localStorage.getItem("username");
     if (!username) {
@@ -59,7 +59,7 @@ export default function ComparePage() {
     fetchAssignments();
   }, []);
 
-  // Load versions when assignment changes 
+  // Load versions when assignment changes
   useEffect(() => {
     if (!assignmentId) {
       setVersions([]);
@@ -107,11 +107,11 @@ export default function ComparePage() {
       return await blob.text();
     }
 
-    // .pdf and other formats not supported 
+    // .pdf and other formats not supported
     return "File format not supported for comparison. Only .txt and .docx files are supported.";
   }
 
-  // Compare 
+  // Compare
   async function handleCompare() {
     setError("");
     setShowDiff(false);
@@ -262,7 +262,7 @@ export default function ComparePage() {
                     </option>
                   ))}
                 </select>
-                {/* Download button  only shown when version A is selected */}
+                {/* Download button - only shown when version A is selected */}
                 {versionA && (
                   <button
                     onClick={() => handleDownload(versionA)}
