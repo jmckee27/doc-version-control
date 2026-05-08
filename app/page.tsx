@@ -1,5 +1,4 @@
-//  Dashboard page
-
+// Dashboard
 "use client";
 
 import { useState, useEffect } from "react";
@@ -17,7 +16,6 @@ export default function Home() {
   useEffect(() => {
     async function fetchAssignments() {
       try {
-
         const storedUsername = localStorage.getItem("username");
         if (!storedUsername) {
           router.push("/login");
@@ -68,7 +66,7 @@ export default function Home() {
             Document Version Control
           </h1>
           <p className="text-zinc-600 dark:text-zinc-400">
-            Welcome back, <b> {username} </b>
+            Welcome back, <b className="text-1x2 dark:text-zinc-50 mb-2"> {username} </b>
           </p>
         </div>
 
@@ -123,21 +121,17 @@ export default function Home() {
         </div>
 
         <div className="mt-8 flex gap-4">
-          {/* ── SPRINT 3 TODO ──────────────────────────────────
-              Wire to POST /api/meta/doc
-              Send: {
-                user_id: localStorage.getItem("user_id"),
-                title: from input,
-                description: from input
-              }
-              On success: refresh assignments list
-          ─────────────────────────────────────────────────── */}
-          <button className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
-            + New Assignment
-          </button>
-
+          {/* New Assignment -> upload page in Mode 1 (create new assignment + upload) */}
           <Link
-            href="/upload"
+            href="/upload?mode=new"
+            className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            + New Assignment
+          </Link>
+
+          {/* Upload Document → upload page in Mode 2 (existing assignment) */}
+          <Link
+            href="/upload?mode=existing"
             className="px-6 py-2 border border-zinc-300 dark:border-zinc-600 text-black dark:text-zinc-50 font-medium rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
           >
             Upload Document
